@@ -1,0 +1,12 @@
+Minha conta Microsoft da Facens diz estar sem licença, então precisei adaptar o plano de teste
+
+ID |  ITEM	                                                         | STATUS	|  ARTEFATO COM ERRO	CORREÇÕES A SEREM REALIZADAS
+1	 | O código está documentado conforme os padrões da empresa?	    |   NÃO	  | Classe User	Ajustar a documentação dos métodos para seguir os padrões definidos pela empresa, incluindo parâmetros, retorno e descrição detalhada das exceções.
+2	 | variáveis e constantes estão com nomenclatura significativa?	  |   NÃO	  |  Variáveis nome e result	Renomear as variáveis para algo mais descritivo, como userName e isAuthenticated.
+3	 | Existe alguma consulta SQL vulnerável a SQL Injection?	        |   SIM	  |  Método verificarUsuario	Substituir a concatenação de strings na construção da consulta SQL por PreparedStatement para evitar SQL Injection.
+4  |	A conexão com o banco de dados é fechada adequadamente?	      |   NÃO	  |  Métodos conectarBD e verificarUsuario	Implementar o uso de try-with-resources para garantir que Connection, Statement e ResultSet sejam fechados adequadamente, evitando vazamento de recursos.
+5  |	Foi realizado o tratamento de exceções?	                      |   NÃO	  |  Métodos conectarBD e verificarUsuario	Incluir logs mais detalhados e mensagens de erro úteis nos blocos catch para facilitar a identificação de problemas durante a execução.
+6	 | O carregamento do driver está implementado corretamente?	      |   NÃO	  |  Método conectarBD	Corrigir o carregamento do driver MySQL, garantindo o uso correto de com.mysql.cj.jdbc.Driver e adicionar uma verificação explícita para tratar falhas no carregamento.
+7  | Existe validação dos dados de entrada do usuário?	            |   NÃO	  |  Método verificarUsuario	Implementar validação e higienização de entrada para os parâmetros login e senha, protegendo o sistema contra entradas maliciosas ou inconsistentes.
+8	 | Os métodos possuem nomenclatura significativa?	                |   NÃO	  |  Método conectarBD	Renomear o método conectarBD para algo mais descritivo, como getConnection, para melhorar a clareza e alinhamento com as boas práticas de nomenclatura.
+9  | Existe redundância nas variáveis de classe?	                  |   SIM	  |  Variáveis nome e result	Declarar as variáveis nome e result como locais dentro do método verificarUsuario, pois não são utilizadas fora dele. Isso melhora o encapsulamento e evita confusões.
