@@ -1,5 +1,5 @@
-Cláusulas de captura sem conteúdo
-As cláusulas de captura estão vazias, o que dificulta a análise e resolução de problemas durante a execução.
+Cláusulas catch sem conteúdo
+As cláusulas catch estão vazias, o que dificulta a análise e resolução de problemas durante a execução.
 Sugestão de correção: Inclua mensagens de erro ou registros de log nos blocos de captura para facilitar o diagnóstico de falhas.
 
 Consulta SQL suscetível a vulnerabilidades
