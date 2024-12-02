@@ -70,3 +70,95 @@ bash
 Copiar código
 java -cp bin login.User
 
+CODIGO JAVADOC (tive problemas na hora de gerar o javadoc(Loading source files for package login...
+Constructing Javadoc information...
+C:\Users\Lucas\eclipse-workspace\login\src\login\User.java:3: error: package java.sql is not visible
+import java.sql.Connection;
+           ^
+  (package java.sql is declared in module java.sql, but module login does not read it)
+C:\Users\Lucas\eclipse-workspace\login\src\login\User.java:4: error: package java.sql is not visible
+import java.sql.DriverManager;
+           ^
+  (package java.sql is declared in module java.sql, but module login does not read it)
+C:\Users\Lucas\eclipse-workspace\login\src\login\User.java:5: error: package java.sql is not visible
+import java.sql.PreparedStatement;
+           ^
+  (package java.sql is declared in module java.sql, but module login does not read it)
+C:\Users\Lucas\eclipse-workspace\login\src\login\User.java:6: error: package java.sql is not visible
+import java.sql.ResultSet;
+           ^
+  (package java.sql is declared in module java.sql, but module login does not read it)
+4 errors))
+
+package login;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+/**
+ * Classe User para manipulação de login e conexão com banco de dados.
+ * Esta classe verifica credenciais de usuário utilizando o MySQL.
+ */
+public class User {
+
+    
+    public String nome = "";
+
+ 
+    public boolean result = false;
+
+    /**
+     * Método para estabelecer a conexão com o banco de dados.
+     *
+     * @return Connection objeto de conexão ou null caso ocorra algum erro.
+     */
+    public Connection conectarBD() {
+        Connection conn = null;
+        try {
+            
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            
+            String url = "jdbc:mysql://127.0.0.1/test?user=lopes&password=123";
+            
+            
+            conn = DriverManager.getConnection(url);
+        } catch (Exception e) {
+            System.out.println("Erro ao conectar ao banco: " + e.getMessage());
+        }
+        return conn;
+    }
+
+    /**
+     * verifica se o usuário existe no banco de dados com a senha declarada.
+     *
+     * @param login O login do usuário.
+     * @param senha A senha do usuário.
+     * @return true se o login for válido; false caso contrário.
+     */
+    public boolean verificarUsuario(String login, String senha) {
+        String sql = "SELECT nome FROM usuarios WHERE login = ? AND senha = ?;";
+        
+        
+        try (Connection conn = conectarBD();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            
+            ps.setString(1, login);
+            ps.setString(2, senha);
+            
+           
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    result = true; 
+                    nome = rs.getString("nome"); 
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao executar a consulta: " + e.getMessage());
+        }
+        return result; // Retornando o resultado da verificação
+    }
+}
